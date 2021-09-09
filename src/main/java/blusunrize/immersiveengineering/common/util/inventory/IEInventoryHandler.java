@@ -70,7 +70,7 @@ public class IEInventoryHandler implements IItemHandlerModifiable
 	@Override
 	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate)
 	{
-		if(slot>=canInsert.length)return stack;
+		if(slot<canInsert.length)
 		if(!canInsert[slot]||stack.isEmpty())
 			return stack;
 
@@ -142,7 +142,7 @@ public class IEInventoryHandler implements IItemHandlerModifiable
 	@Override
 	public ItemStack extractItem(int slot, int amount, boolean simulate)
 	{
-		if(slot>=canExtract.length)return ItemStack.EMPTY;
+		if(slot<canExtract.length)
 		if(!canExtract[slot]||amount==0)
 			return ItemStack.EMPTY;
 
@@ -177,7 +177,7 @@ public class IEInventoryHandler implements IItemHandlerModifiable
 	@Override
 	public boolean isItemValid(int slot, @Nonnull ItemStack stack)
 	{
-		return slot<=canInsert.length&&canInsert[slot]&&inv.isStackValid(slot, stack);
+		return (slot<=canInsert.length||canInsert[slot])&&inv.isStackValid(slot, stack);
 	}
 
 	@Override
